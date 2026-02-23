@@ -2,6 +2,9 @@
 
 namespace App\Orchid\Resources;
 
+use App\Models\Post;
+use Orchid\Screen\Sight;
+use Orchid\Screen\Fields\Input;
 use Orchid\Crud\Resource;
 use Orchid\Screen\TD;
 
@@ -12,7 +15,7 @@ class PostResource extends Resource
      *
      * @var string
      */
-    public static $model = '';
+    public static $model = Post::class;
 
     /**
      * Get the fields displayed by the resource.
@@ -21,7 +24,14 @@ class PostResource extends Resource
      */
     public function fields(): array
     {
-        return [];
+        return [
+            Input::make('title')
+                ->title('Title')
+                ->placeholder('Agregue un titulo'),
+            Input::make('content')
+                ->title('Content')
+                ->placeholder('Agregue un contenido'),
+        ];
     }
 
     /**
@@ -33,6 +43,8 @@ class PostResource extends Resource
     {
         return [
             TD::make('id'),
+            TD::make('title', 'Title'),
+            TD::make('content', 'Content'),
 
             TD::make('created_at', 'Date of creation')
                 ->render(function ($model) {
@@ -53,7 +65,11 @@ class PostResource extends Resource
      */
     public function legend(): array
     {
-        return [];
+        return [
+            Sight::make('id', 'ID'),
+            Sight::make('title', 'Title'),
+            Sight::make('content', 'Content'),
+        ];
     }
 
     /**
